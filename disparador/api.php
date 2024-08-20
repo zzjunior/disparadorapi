@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Font+Name">
 </head>
 <body>
+    
     <main class="container">
     <h1 class="text-center">Disparador</h1>
 
@@ -28,20 +29,26 @@
     <section class="container">
     <h2>Planilhas:</h2>
     <?php
-$planilhaDir = 'planilha/';
-$planilhas = scandir($planilhaDir);
-foreach ($planilhas as $planilha) {
-    if ($planilha != '.' && $planilha != '..') {
-        echo '<a href="' . $planilhaDir . $planilha . '">' . $planilha . '</a>';
-        echo ' <a href="delete.php?file=' . urlencode($planilhaDir . $planilha) . '"> Excluir</a><br>';
+    $planilhaDir = 'planilhas/';
+    $planilhas = scandir($planilhaDir);
+
+    foreach ($planilhas as $planilha) {
+        if ($planilha != '.' && $planilha != '..') {
+            echo '<a href="' . $planilhaDir . $planilha . '">' . $planilha . '</a>';
+            echo ' <a href="delete.php?file=' . urlencode($planilhaDir . $planilha) . '">Excluir</a><br>';
+        }
     }
-}
-?>
+
+    // Verifica se a exclusão foi solicitada e inclui o modal
+    if (isset($_GET['file'])) {
+        include 'delete.php';
+    }
+    ?>
 </section>
 
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $targetDir = 'planilha/';
+        $targetDir = 'planilhas/';
         $targetFile = $targetDir . basename($_FILES['planilha']['name']);
         $uploadOk = 1;
         $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
@@ -54,7 +61,7 @@ foreach ($planilhas as $planilha) {
 
         // Move o arquivo para a pasta de destino
         if ($uploadOk == 1 && move_uploaded_file($_FILES['planilha']['tmp_name'], $targetFile)) {
-            echo 'Planilha enviada com sucesso.';
+            echo '<p class="text-center">Planilha enviada com sucesso.</p>';
             echo '<script>setTimeout(function(){location.reload();}, 2000);</script>'; // Atualiza a página após 2 segundos
         } else {
             echo 'Ocorreu um erro ao enviar a planilha.';
