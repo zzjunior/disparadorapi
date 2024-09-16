@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Disparador Lojinha</title>
+    <title>WhatsApp | Disparador</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Font+Name">
@@ -18,11 +18,13 @@
         <label for="planilha" class="form-label">Faça o uploud da Planilha:</label>
         <input class="form-control" id="formFile" type="file" name="planilha" id="planilha" required>
         </div>
-        <input type="submit" value="Upload"><br><br>
+        <div class="text-center">
+        <input class="btn btn-dark w-25" type="submit" value="Upload">
+        </div>
     </form>
 
-    <div class="mb-3 text-center">
-        <label for="mensagem" class="form-label">Mensagem:</label><br>
+    <div class="mb-3 text-center mt-5">
+        <label for="mensagem" class="form-label"><b>Mensagem à ser enviada:</b></label><br>
         <textarea class="form-control" type="text" name="mensagem" id="mensagem" rows="3" required></textarea><br><br>
     </div>
     </main>
