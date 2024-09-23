@@ -44,14 +44,14 @@ app.post('/upload', upload.single('planilha'), (req, res) => {
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
 
-    // Converte a planilha em JSON
-    const jsonData = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
+// Converte a planilha em JSON
+const jsonData = xlsx.utils.sheet_to_json(worksheet, { header: 1 });
 
-    // Extrai o header (primeira linha)
-    const header = jsonData[0];
+// Extrai o header (primeira linha)
+const header = jsonData[0];
 
-    // Retorna o header para o front-end
-    res.json({ message: 'Upload bem-sucedido!', header });
+// Retorna o header para o front-end
+res.json({ message: 'Upload bem-sucedido!', header });
   });
 });
 
@@ -71,6 +71,23 @@ app.delete('/delete/:filename', (req, res) => {
     res.send('Arquivo excluído com sucesso!');
   });
 });
+
+// Rota de processo da planilha
+app.get('/process/:filename', (req, res) => {
+  const filePath = path.join(uploadDir, req.params.filename);
+  const workbook = xlsx.readFile(filePath);
+  const sheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheetName];
+
+  // Converte a planilha em JSON
+  const jsonData = xlsx.utils.sheet_to_json(worksheet);
+
+  // Extrai o header (primeira linha)
+  const header = Object.keys(jsonData[0]);
+
+  res.json({ header, planilha: jsonData });
+});
+
 
 // Inicia o servidor
 app.listen(port, () => {
